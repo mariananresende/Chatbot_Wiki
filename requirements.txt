@@ -1,0 +1,14 @@
+streamlit
+langchain
+langchain-community
+langchain-core
+langchain-groq
+langchain-huggingface
+chromadb==0.4.14
+pypdf
+beautifulsoup4
+requests
+python-dotenv
+
+
+
