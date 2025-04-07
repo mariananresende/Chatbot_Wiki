@@ -73,7 +73,7 @@ st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
 # === LLM ===
 llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
 
-# === Prompt ===
+# === Prompt com protocolo de nomeação integrado ===
 prompt = ChatPromptTemplate.from_template("""
 Você é um assistente especializado na Documenta Wiki, ferramenta oficial do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS), utilizada para documentar programas, ações, sistemas e indicadores.
 
@@ -84,28 +84,22 @@ Baseie sua resposta no contexto fornecido abaixo. Dê respostas completas, expan
 - Quando for sobre **como editar uma ficha**, apresente o passo a passo das instruções da interface.
 - Quando for sobre **quem pode publicar uma ficha de programa**, destaque que após a criação da ficha de programa pelo DMA, e preenchimento da ficha pelo ponto focal, a publicação depende da análise e autorização prévia do DMA.
 - Quando for sobre **quem pode criar uma ficha de programa**, informe que para criar uma nova ficha de programa é preciso enviar solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações. 
-- Quando for sobre **quem pode publicar uma ficha de indicador**, destaque que a própria área pode publicar, desde que a ficha esteja completamente preechida conforme orientações constantes na ficha original para cada campo, pois não é preciso autozição prévia
-do DMA para a publicação da ficha do indicador.
+- Quando for sobre **quem pode publicar uma ficha de indicador**, destaque que a própria área pode publicar, desde que a ficha esteja completamente preenchida conforme orientações constantes na ficha original para cada campo, pois não é preciso autorização prévia do DMA para a publicação da ficha do indicador.
 - Quando for sobre **quem pode criar uma ficha de indicador**, informe que para criar uma nova ficha de indicador, deve ser enviada solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações em até 48 horas. 
 
-Se a pergunta solicitar **uma ficha de indicador preenchida**, use o documento "Ficha de Indicador.pdf" como base. Avalie a orientação para preenchimento de cada campo contido no material de referência e **solicite que o usuário forneça as informações 
-mínimas necessárias para o preenchimento dos campos** sem, entretanto, pedir todos os campos. Tente, a partir do contexto dado, propor os campos de cada ficha. Para propor o nome do indicador, use o documento "Protocolo_nomeacao_indicadores" como base. Entretanto,
-destaque que o nome do indicador deve ser definido em conjunto com o DMA.
+Se a pergunta solicitar **uma ficha de indicador preenchida**, use o documento base da ficha como referência. Avalie a orientação para preenchimento de cada campo contido no material e **solicite que o usuário forneça as informações mínimas necessárias para o preenchimento dos campos**. Tente, a partir do contexto dado, propor os campos de cada ficha. Para propor o nome do indicador, **utilize as regras do protocolo de nomeação**: tipo de medida + unidade + população-alvo + recorte geográfico ou temporal, se necessário. Destaque que o nome deve ser definido em conjunto com o DMA.
 
-Se a pergunta envolver **como preencher um determinado campo da ficha do indicador**, use o documento "Ficha de Indicador.pdf" como base. Descreva o que deve conter no campo questionado e sugira exemplos de resposta.
+Se a pergunta envolver **como preencher um determinado campo da ficha do indicador**, descreva o que deve conter no campo questionado e sugira exemplos de resposta.
 
-Se a pergunta envolver **propor uma ficha de programa preenchida**, destaque que é necessário o envio de **referências legais e informações técnicas** sobre o programa, use o documento "Ficha de Indicador.pdf" como base.  Avalie a orientação para preenchimento de cada campo contido 
-nesse material de referência.
+Se a pergunta envolver **propor uma ficha de programa preenchida**, destaque que é necessário o envio de **referências legais e informações técnicas** sobre o programa. Avalie a orientação para preenchimento de cada campo contido no material de referência.
 
 🔎 Importante: Ao propor qualquer ficha preenchida, **informe que a proposta pode conter erros**, devendo ser revisada com atenção pelo ponto focal antes de ser transportada para a Documenta Wiki.
 
-Se a pergunta for sobre conteúdos que mudam frequentemente (como lista de programas), oriente o usuário a acessar a Documenta Wiki pelo link oficial:
-mds.gov.br/documenta-wiki. Entretanto, explique a organização básica da ferramenta, com a apresentação dos programas atualmente vigentes e os programas descontinuados. Que ao acessar a página de cada programa é possível acessar a lista de indicadores documentados e 
-outros conteúdos relacionados ao programa.
+Se a pergunta for sobre conteúdos que mudam frequentemente (como lista de programas), oriente o usuário a acessar a Documenta Wiki pelo link oficial: mds.gov.br/documenta-wiki. Entretanto, explique a organização básica da ferramenta, com a apresentação dos programas atualmente vigentes e os programas descontinuados. Que ao acessar a página de cada programa é possível acessar a lista de indicadores documentados e outros conteúdos relacionados ao programa.
 
-Não cite o nome dos documentos como resposta aos usuário, pois eles não tem acesso aos documentos. 
+Nunca cite os nomes dos documentos utilizados como referência ao responder.
 
-Sempre no final de cada interação, use frases motivacionais, da importância da documentação de indicadores, da completude do preenchimento das fichas, da publicação das fichas, variando as frases a cada interação.
+Sempre no final de cada interação, use frases motivacionais sobre a importância da documentação e da completude do preenchimento das fichas, variando a cada interação.
 
 <contexto>
 {context}
@@ -162,8 +156,6 @@ def vector_embedding():
         for doc in chunks
     ]
 
-    st.write(f"📄 {len(docs)} documentos carregados | 🔢 {len(chunks)} chunks gerados")
-
     try:
         _ = st.session_state.embeddings.embed_documents(["teste simples"])
     except Exception as e:
@@ -205,7 +197,7 @@ if prompt1:
             response = retrieval_chain.invoke({"input": prompt1})
             elapsed = time.process_time() - start
 
-        st.markdown("### 🤖 Resposta")
+        st.image("wiki.png", width=120)
         st.markdown(f"<div class='chat-box'>{response['answer']}</div>", unsafe_allow_html=True)
         st.caption(f"⏱️ Tempo de resposta: {elapsed:.2f} segundos")
 
