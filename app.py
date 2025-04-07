@@ -78,7 +78,7 @@ def vector_embedding():
             "Chatbot_Wiki/Manual_de_Uso_Documenta_Wiki_MDS_SAGICAD.pdf",
             "Chatbot_Wiki/Manual_de_Uso_Documenta_Wiki_Teste_MDS_SAGICAD.pdf",
             "Chatbot_Wiki/Roteiro_video_divulgacao.pdf",
-            "Chatbot_Wiki/Roteiro_Tutorial_Documenta_Wiki.pdf",
+            "Chatbot_Wiki/Roteiro_video_tutorial_edicao.pdf",
             "Chatbot_Wiki/Ficha de Indicador.pdf",
             "Chatbot_Wiki/Ficha de Programa.pdf",
             "Chatbot_Wiki/Ficha de Sistema.pdf"
