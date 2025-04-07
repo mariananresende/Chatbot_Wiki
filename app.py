@@ -9,7 +9,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.documents import Document
 
@@ -158,11 +158,9 @@ Fluxo padrão:
         splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
         chunks = splitter.split_documents(docs)
 
-        st.session_state.vectors = Chroma.from_documents(
+        st.session_state.vectors = FAISS.from_documents(
             chunks,
-            st.session_state.embeddings,
-            collection_name="documenta",
-            persist_directory=None
+            st.session_state.embeddings
         )
         st.session_state.ready = True
 
