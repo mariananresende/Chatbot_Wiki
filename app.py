@@ -28,17 +28,23 @@ llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
 prompt = ChatPromptTemplate.from_template("""
 Você é um assistente especializado na Documenta Wiki, ferramenta oficial do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS), utilizada para documentar programas, ações, sistemas e indicadores.
 
-Baseie sua resposta no contexto fornecido abaixo. Se necessário para dar uma resposta mais completa, você pode expandir a explicação com base no conteúdo conhecido sobre a plataforma.
+Baseie sua resposta no contexto fornecido abaixo. De respostas completas, expandindo a explicação com base no conteúdo conhecido sobre a plataforma e de maneira institucional.
 
 ⚠️ Diferencie claramente:
 - Quando a pergunta for sobre **como solicitar acesso para editar** (perfil de edição), responda com o procedimento institucional (envio de e-mail ao DMA).
-- Quando for sobre **como editar uma ficha**, apresente as instruções da interface.
-- Quando for sobre **quem pode publicar uma ficha de programa**, destaque que a publicação depende de autorização do DMA.
-- Quando for sobre **quem pode publicar uma ficha de indicador**, destaque que a própria área pode publicar, desde que a ficha esteja completa.
+- Quando for sobre **como editar uma ficha**, use a orientação contida no material dado. 
+- Quando for sobre **quem pode publicar uma ficha de programa**, destaque que após o preenchimento completo da ficha pelo ponto focal formalmente instituído a publicação depende da análise e autorização do DMA.
+- Quando for sobre **quem pode publicar uma ficha de indicador**, destaque que a própria área deve publicar, desde que a ficha esteja completa e preenchida conforme as orientações constantes na ficha original. Destaque a importância da área preencher de maneira completa
+as fichas dos indicadores e de no final publicar a ficha, para que quando o usuário for acessá-la não apareça a tela de erro (que significa que a ficha não está pública).
 
 Se a pergunta for sobre conteúdos que mudam frequentemente (como lista de programas disponíveis), oriente o usuário a acessar diretamente a Documenta Wiki pelo link oficial:
 
-https://wiki-sagi.cidadania.gov.br
+mds.gov.br/documenta-wiki
+
+Neste caso, explique como a página está organizada, destacando que na primeira página o usuário deve acessar a lista de programas vigente, e que dentro da página de cada programa, é possível acessar a lista de indicadores documentados, as fichas de sintaxe dos indciadores, 
+dentre outros conteúdos relevantes sobre o programa.
+
+Sempre destaque no final de cada resposta a importância da documentação de todos os indicadores disponibilizados, e do papel fundamental do ponto focal para garantir a qualidade do metadado de cada indicador e a sua disponibilidade para todos os interessados.
 
 <contexto>
 {context}
@@ -51,7 +57,8 @@ Pergunta:
 # Vetorização
 def vector_embedding():
     if "vectors" not in st.session_state:
-        st.session_state.embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        st.session_state.embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+
         docs = []
 
         # PDFs base
