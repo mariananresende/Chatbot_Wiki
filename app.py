@@ -94,10 +94,11 @@ def vector_embedding():
     pdf_paths = [
         "Manual_de_Uso_Documenta_Wiki_MDS_SAGICAD.pdf",
         "Roteiro_video_divulgacao.pdf",
-        "Roteiro_Tutorial_Documenta_Wiki.pdf",
+        "Roteiro_video_tutorial_edicao.pdf",
         "Ficha de Indicador.pdf",
         "Ficha de Programa.pdf",
-        "Ficha de Sintaxe.pdf"
+        "Ficha de Sintaxe.pdf",
+        "Protocolo_nomeacao_indicadores.pdf"
     ]
 
     docs = []
