@@ -3,7 +3,7 @@ langchain
 langchain-community
 langchain-core
 langchain-groq
-langchain-huggingface
+langchain-google-genai
 chromadb==0.4.14
 pypdf
 beautifulsoup4
