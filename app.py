@@ -28,9 +28,41 @@ if not google_api_key:
     st.error("⚠️ Chave da Google API não encontrada.")
     st.stop()
 
-# === Interface ===
-st.image("wiki.png", width=200)
-st.title("Chat Documenta Wiki - Dúvidas sobre a ferramenta")
+# === Aparência geral da interface ===
+st.set_page_config(page_title="Chat Documenta Wiki", layout="wide")
+
+st.markdown("""
+    <style>
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .stTextArea textarea {
+            font-size: 16px !important;
+            border-radius: 8px !important;
+            padding: 10px;
+        }
+        .stButton button {
+            background-color: #204d74;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+        }
+        .chat-box {
+            background-color: #e9ecef;
+            padding: 1rem;
+            border-left: 5px solid #204d74;
+            border-radius: 5px;
+            margin-top: 1rem;
+            font-size: 16px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# === Cabeçalho ===
+st.image("wiki.png", width=220)
+st.title("Chat Documenta Wiki")
+st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
 
 # === LLM ===
 llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
@@ -42,22 +74,22 @@ Você é um assistente especializado na Documenta Wiki, ferramenta oficial do Mi
 Baseie sua resposta no contexto fornecido abaixo. Dê respostas completas, expandindo a explicação com base no conteúdo conhecido sobre a plataforma. Responda sempre em linguagem acessível, porém formal.
 
 ⚠️ Diferencie claramente:
-- Quando a pergunta for sobre **como solicitar acesso para editar** (perfil de edição), responda com o procedimento institucional (envio de e-mail ao DMA).
-- Quando for sobre **como editar uma ficha**, apresente as instruções da interface.
+- Quando a pergunta for sobre **como solicitar acesso para editar**, responda com o procedimento institucional (envio de e-mail ao DMA). Traga o prazo que o DMA tem para respoder.
+- Quando for sobre **como editar uma ficha**, apresente o passo a passo das instruções da interface.
 - Quando for sobre **quem pode publicar uma ficha de programa**, destaque que após a criação da ficha de programa pelo DMA, e preenchimento da ficha pelo ponto focal, a publicação depende da análise e autorização prévia do DMA.
-- Quando for sobre **quem pode criar uma ficha de indicador**, informe que para criar uma nova ficha de programa, envie solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações. 
-- Quando for sobre **quem pode publicar uma ficha de indicador**, destaque que após a criação da ficha de indicador pelo DMA a própria área pode publicar, desde que a ficha esteja completamente preechida conforme orientações constantes na ficha original para cada campo.
-Destaque que não precisa da autozição prévia do DMA para a publicação da ficha do indicador.
-- Quando for sobre **quem pode criar uma ficha de indicador**, informe que para criar uma nova ficha de indicador, envie solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações em até 48 horas. 
+- Quando for sobre **quem pode criar uma ficha de programa**, informe que para criar uma nova ficha de programa é preciso enviar solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações. 
+- Quando for sobre **quem pode publicar uma ficha de indicador**, destaque que a própria área pode publicar, desde que a ficha esteja completamente preechida conforme orientações constantes na ficha original para cada campo, pois não é preciso autozição prévia
+do DMA para a publicação da ficha do indicador.
+- Quando for sobre **quem pode criar uma ficha de indicador**, informe que para criar uma nova ficha de indicador, deve ser enviada solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações em até 48 horas. 
 
-Se a pergunta envolver **uma ficha de indicador preenchida**, use o documento "Ficha de Indicador.pdf" como base. Avalie a orientação para preenchimento de cada campo contido no material de referência e **solicite que o usuário forneça as informações 
+Se a pergunta solicitar **uma ficha de indicador preenchida**, use o documento "Ficha de Indicador.pdf" como base. Avalie a orientação para preenchimento de cada campo contido no material de referência e **solicite que o usuário forneça as informações 
 mínimas necessárias para o preenchimento dos campos** sem, entretanto, pedir todos os campos. Tente, a partir do contexto dado, propor os campos de cada ficha. Para propor o nome do indicador, use o documento "Protocolo_nomeacao_indicadores" como base. Entretanto,
 destaque que o nome do indicador deve ser definido em conjunto com o DMA.
 
-Se a Se a pergunta envolver **como preencher um campo da ficha do indicador**, use o documento "Ficha de Indicador.pdf" como base. Descreva o que deve conter no campo questionado e sugira exemplos de resposta.
+Se a pergunta envolver **como preencher um determinado campo da ficha do indicador**, use o documento "Ficha de Indicador.pdf" como base. Descreva o que deve conter no campo questionado e sugira exemplos de resposta.
 
 Se a pergunta envolver **propor uma ficha de programa preenchida**, destaque que é necessário o envio de **referências legais e informações técnicas** sobre o programa, use o documento "Ficha de Indicador.pdf" como base.  Avalie a orientação para preenchimento de cada campo contido 
-nesse material de referência
+nesse material de referência.
 
 🔎 Importante: Ao propor qualquer ficha preenchida, **informe que a proposta pode conter erros**, devendo ser revisada com atenção pelo ponto focal antes de ser transportada para a Documenta Wiki.
 
@@ -80,7 +112,7 @@ Pergunta:
 # === Função de vetorização ===
 def vector_embedding():
     if "vectors" in st.session_state:
-        return  # Já carregado
+        return
 
     try:
         st.session_state.embeddings = GoogleGenerativeAIEmbeddings(
@@ -98,7 +130,7 @@ def vector_embedding():
         "Ficha de Indicador.pdf",
         "Ficha de Programa.pdf",
         "Ficha de Sintaxe.pdf",
-        "Protocolo_nomeacao_indicadores.pdf"
+        "Protocolo_nomeacao_indicadores"
     ]
 
     docs = []
@@ -141,7 +173,12 @@ def vector_embedding():
         st.stop()
 
 # === Entrada do usuário ===
-prompt1 = st.text_input("Digite sua pergunta sobre a Documenta Wiki")
+prompt1 = st.text_area(
+    "Digite sua pergunta sobre a Documenta Wiki abaixo:",
+    height=100,
+    placeholder="Ex: Como editar uma ficha de indicador? Ou: Quem pode publicar uma ficha de programa?",
+    key="user_input"
+)
 
 # === Botão de carregamento ===
 if st.button("Carregar base do chat"):
@@ -163,8 +200,8 @@ if prompt1:
             elapsed = time.process_time() - start
 
         st.markdown("### 🤖 Resposta")
-        st.success(response['answer'])
-        st.write(f"⏱️ Tempo de resposta: {elapsed:.2f} segundos")
+        st.markdown(f"<div class='chat-box'>{response['answer']}</div>", unsafe_allow_html=True)
+        st.caption(f"⏱️ Tempo de resposta: {elapsed:.2f} segundos")
 
         with st.expander("📄 Trechos usados da base de conhecimento"):
             for i, doc in enumerate(response.get("context", [])):
