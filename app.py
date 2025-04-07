@@ -75,15 +75,14 @@ def vector_embedding():
 
         docs = []
         pdf_paths = [
-        "Manual_de_Uso_Documenta_Wiki_MDS_SAGICAD.pdf",
-        "Manual_de_Uso_Documenta_Wiki_Teste_MDS_SAGICAD.pdf",
-        "Roteiro_video_divulgacao.pdf",
-        "Roteiro_video_tutorial_edicao.pdf",
-        "Ficha de Indicador.pdf",
-        "Ficha de Programa.pdf",
-        "Ficha de Sintaxe.pdf"
+            "Manual_de_Uso_Documenta_Wiki_MDS_SAGICAD.pdf",
+            "Manual_de_Uso_Documenta_Wiki_Teste_MDS_SAGICAD.pdf",
+            "Roteiro_video_divulgacao.pdf",
+            "Roteiro_video_tutorial_edicao.pdf",
+            "Ficha de Indicador.pdf",
+            "Ficha de Programa.pdf",
+            "Ficha de Sistema.pdf"
         ]
-
 
         for path in pdf_paths:
             if os.path.exists(path):
@@ -92,14 +91,39 @@ def vector_embedding():
             else:
                 st.warning(f"Arquivo não encontrado: {path}")
 
-        splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=50)
+        st.write(f"📄 Total de páginas extraídas: {len(docs)}")
+
+        splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=30)
         chunks = splitter.split_documents(docs)
 
-        st.session_state.vectors = FAISS.from_documents(
-            [doc for doc in chunks],
-            st.session_state.embeddings
-        )
-        st.session_state.ready = True
+        # Limpeza dos textos
+        def limpar_texto(texto):
+            return texto.encode("utf-8", "ignore").decode("utf-8").strip()
+
+        chunks = [
+            Document(page_content=limpar_texto(doc.page_content), metadata=doc.metadata)
+            for doc in chunks
+        ]
+
+        st.write(f"🔢 Total de chunks: {len(chunks)}")
+
+        # Teste de embedding com captura de erro
+        try:
+            _ = st.session_state.embeddings.embed_documents(["teste simples"])
+        except Exception as e:
+            st.error(f"❌ Erro na chamada de teste ao embedding: {e}")
+            st.stop()
+
+        try:
+            st.session_state.vectors = FAISS.from_documents(
+                chunks,
+                st.session_state.embeddings
+            )
+            st.session_state.ready = True
+        except Exception as e:
+            st.error(f"❌ Erro ao criar vetor FAISS: {e}")
+            st.stop()
+
 
 # === Entrada ===
 prompt1 = st.text_input("Digite sua pergunta sobre a Documenta Wiki")
