@@ -81,7 +81,7 @@ def vector_embedding():
         "Roteiro_video_tutorial_edicao.pdf",
         "Ficha de Indicador.pdf",
         "Ficha de Programa.pdf",
-        "Ficha de Sistema.pdf"
+        "Ficha de Sintaxe.pdf"
         ]
 
 
