@@ -136,7 +136,7 @@ def vector_embedding():
         "Ficha de Indicador.pdf",
         "Ficha de Programa.pdf",
         "Ficha de Sintaxe.pdf",
-        "Protocolo_nomeacao_indicadores"
+        "Protocolo_nomeacao_indicadores.pdf"
     ]
 
     docs = []
