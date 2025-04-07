@@ -1,15 +1,23 @@
+# Streamlit app
 streamlit
+
+# Langchain e modelos
 langchain
-langchain-community
 langchain-core
+langchain-community
 langchain-groq
 langchain-google-genai
-chromadb==0.4.14
-pypdf
-beautifulsoup4
-requests
-python-dotenv
+
+# Vetorização
 faiss-cpu
+
+# Documentos PDF
+pypdf
+langchain-pdf
+
+# Utilitários
+python-dotenv
+
 
 
 
