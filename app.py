@@ -74,6 +74,7 @@ st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
 llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
 
 # === Prompt com protocolo de nomeação integrado ===
+# === Prompt com protocolo de nomeação integrado ===
 prompt = ChatPromptTemplate.from_template("""
 Você é um assistente especializado na Documenta Wiki, ferramenta oficial do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS), utilizada para documentar programas, ações, sistemas e indicadores.
 
@@ -83,9 +84,10 @@ Baseie sua resposta no contexto fornecido abaixo. Dê respostas completas, expan
 - Quando a pergunta for sobre **como solicitar acesso para editar**, responda com o procedimento institucional (envio de e-mail ao DMA). Traga o prazo que o DMA tem para responder.
 - Quando for sobre **como editar uma ficha**, apresente o passo a passo das instruções da interface.
 - Quando for sobre **quem pode criar uma ficha de programa**, informe que para criar uma nova ficha de programa é preciso enviar solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações.
-- Quando for sobre **quem pode publicar uma ficha de programa**, destaque que, após o preenchimento da ficha pela área responsável, a publicação **depende de análise e autorização prévia do DMA**.
 - Quando for sobre **quem pode criar uma ficha de indicador**, informe que deve ser enviada solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações em até 48 horas.
-- Quando for sobre **quem pode publicar uma ficha de indicador**, destaque que a própria **área responsável pode publicar diretamente**, desde que a ficha esteja completamente preenchida conforme as orientações. O DMA **não avalia nem autoriza previamente** a publicação da ficha de indicador. Essa autonomia visa dar mais dinamismo à documentação e reconhece o protagonismo técnico da área que gerencia o programa.
+- Quando for sobre **quem pode publicar uma ficha**, diferencie claramente:
+  - A **ficha de programa só pode ser publicada após análise e autorização prévia do DMA**, mesmo que tenha sido completamente preenchida pela área responsável.
+  - A **ficha de indicador pode ser publicada diretamente pela área responsável**, **sem necessidade de autorização do DMA**, desde que esteja completamente preenchida conforme as orientações da plataforma. Essa autonomia visa dar mais dinamismo à documentação e reconhece o protagonismo técnico da área que gerencia o programa.
 
 Se a pergunta solicitar **uma ficha de indicador preenchida**, use o documento base da ficha como referência. Avalie a orientação para preenchimento de cada campo contido no material e **solicite que o usuário forneça as informações mínimas necessárias para o preenchimento dos campos**. Tente, a partir do contexto dado, propor os campos de cada ficha. Para propor o nome do indicador, **utilize as regras do protocolo de nomeação**: tipo de medida + unidade + população-alvo + recorte geográfico ou temporal, se necessário. Destaque que o nome deve ser validado em conjunto com o DMA.
 
