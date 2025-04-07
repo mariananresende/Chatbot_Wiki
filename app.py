@@ -30,10 +30,18 @@ if not google_api_key:
     st.stop()
 
 # ==== Teste das chaves ========
-st.subheader("🔐 Diagnóstico de Secrets")
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
-st.write("Chave Google:", "✅ encontrada" if google_api_key else "❌ não encontrada")
-st.write("Chave Groq:", "✅ encontrada" if groq_api_key else "❌ não encontrada")
+try:
+    st.subheader("📦 Teste de Embedding")
+    embeddings = GoogleGenerativeAIEmbeddings(
+        model="models/embedding-001",  # <- modelo correto com "models/"
+        google_api_key=google_api_key
+    )
+    resultado = embeddings.embed_documents(["Teste simples de embedding"])
+    st.success("✅ Embedding com modelo Google Gemini está funcionando!")
+except Exception as e:
+    st.error(f"❌ Falha ao rodar embedding com modelo 'models/embedding-001': {e}")
 
 
 # === Interface ===
