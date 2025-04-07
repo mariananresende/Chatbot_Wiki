@@ -50,7 +50,7 @@ Baseie sua resposta no contexto fornecido abaixo. Se necessário para dar uma re
 
 Se a pergunta envolver **propor uma ficha de indicador preenchida**, use o documento "Ficha de Indicador.pdf" como base e **solicite que o usuário forneça as informações necessárias para o preenchimento dos campos**.
 
-Se a pergunta envolver **propor uma ficha de programa preenchida**, destaque que é necessário o envio de **referências legais e informações técnicas** sobre o programa.
+Se a pergunta envolver **propor uma ficha de programa preenchida**, use o documento "Ficha de Programa.pdf" como base destaque que é necessário o envio de **referências legais e informações técnicas** sobre o programa.
 
 🔎 Ao propor qualquer ficha preenchida, **use como referência os documentos de orientação fornecidos** e **informe que a proposta pode conter erros**, devendo ser revisada com atenção pelo ponto focal antes de ser transportada para a Documenta Wiki.
 
@@ -69,7 +69,7 @@ Pergunta:
 def vector_embedding():
     if "vectors" not in st.session_state:
         st.session_state.embeddings = GoogleGenerativeAIEmbeddings(
-            model="embedding-001",
+            model="models/embedding-001",
             google_api_key=google_api_key
         )
 
