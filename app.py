@@ -4,7 +4,7 @@ import time
 
 # Langchain e integração
 from langchain_groq import ChatGroq
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
@@ -57,7 +57,10 @@ Pergunta:
 # Vetorização
 def vector_embedding():
     if "vectors" not in st.session_state:
-        st.session_state.embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+        st.session_state.embeddings = GoogleGenerativeAIEmbeddings(
+            model="embedding-001",
+            google_api_key=os.getenv("google_api_key") or st.secrets["google_api_key"]
+        )
 
         docs = []
 
