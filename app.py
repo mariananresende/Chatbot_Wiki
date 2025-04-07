@@ -39,7 +39,22 @@ llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
 prompt = ChatPromptTemplate.from_template("""
 Você é um assistente especializado na Documenta Wiki, ferramenta oficial do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS), utilizada para documentar programas, ações, sistemas e indicadores.
 
-Baseie sua resposta no contexto fornecido abaixo...
+Baseie sua resposta no contexto fornecido abaixo. Se necessário para dar uma resposta mais completa, você pode expandir a explicação com base no conteúdo conhecido sobre a plataforma.
+
+⚠️ Diferencie claramente:
+- Quando a pergunta for sobre **como solicitar acesso para editar** (perfil de edição), responda com o procedimento institucional (envio de e-mail ao DMA).
+- Quando for sobre **como editar uma ficha**, apresente as instruções da interface.
+- Quando for sobre **quem pode publicar uma ficha de programa**, destaque que a publicação depende de autorização do DMA.
+- Quando for sobre **quem pode publicar uma ficha de indicador**, destaque que a própria área pode publicar, desde que a ficha esteja completa.
+
+Se a pergunta envolver **propor uma ficha de indicador preenchida**, use o documento "Ficha de Indicador.pdf" como base e **solicite que o usuário forneça as informações necessárias para o preenchimento dos campos**.
+
+Se a pergunta envolver **propor uma ficha de programa preenchida**, destaque que é necessário o envio de **referências legais e informações técnicas** sobre o programa.
+
+🔎 Ao propor qualquer ficha preenchida, **use como referência os documentos de orientação fornecidos** e **informe que a proposta pode conter erros**, devendo ser revisada com atenção pelo ponto focal antes de ser transportada para a Documenta Wiki.
+
+Se a pergunta for sobre conteúdos que mudam frequentemente (como lista de programas), oriente o usuário a acessar a Documenta Wiki pelo link oficial:
+https://wiki-sagi.cidadania.gov.br
 
 <contexto>
 {context}
@@ -48,7 +63,6 @@ Baseie sua resposta no contexto fornecido abaixo...
 Pergunta:
 {input}
 """)
-
 # === Função de vetorização ===
 def vector_embedding():
     if "vectors" in st.session_state:
