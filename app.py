@@ -75,14 +75,15 @@ def vector_embedding():
 
         docs = []
         pdf_paths = [
-            "Chatbot_Wiki/Manual_de_Uso_Documenta_Wiki_MDS_SAGICAD.pdf",
-            "Chatbot_Wiki/Manual_de_Uso_Documenta_Wiki_Teste_MDS_SAGICAD.pdf",
-            "Chatbot_Wiki/Roteiro_video_divulgacao.pdf",
-            "Chatbot_Wiki/Roteiro_video_tutorial_edicao.pdf",
-            "Chatbot_Wiki/Ficha de Indicador.pdf",
-            "Chatbot_Wiki/Ficha de Programa.pdf",
-            "Chatbot_Wiki/Ficha de Sistema.pdf"
+        "Manual_de_Uso_Documenta_Wiki_MDS_SAGICAD.pdf",
+        "Manual_de_Uso_Documenta_Wiki_Teste_MDS_SAGICAD.pdf",
+        "Roteiro_video_divulgacao.pdf",
+        "Roteiro_video_tutorial_edicao.pdf",
+        "Ficha de Indicador.pdf",
+        "Ficha de Programa.pdf",
+        "Ficha de Sistema.pdf"
         ]
+
 
         for path in pdf_paths:
             if os.path.exists(path):
@@ -91,7 +92,7 @@ def vector_embedding():
             else:
                 st.warning(f"Arquivo não encontrado: {path}")
 
-        splitter = RecursiveCharacterTextSplitter(chunk_size=512, chunk_overlap=50)
+        splitter = RecursiveCharacterTextSplitter(chunk_size=300, chunk_overlap=50)
         chunks = splitter.split_documents(docs)
 
         st.session_state.vectors = FAISS.from_documents(
