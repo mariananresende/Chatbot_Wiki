@@ -42,11 +42,17 @@ st.markdown("""
             border-radius: 8px !important;
             padding: 10px;
         }
-        .stButton button {
-            background-color: #204d74;
+        .stButton > button {
+            background-color: #1e467b;
             color: white;
-            font-weight: bold;
+            font-weight: 600;
             border-radius: 6px;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+        .stButton > button:hover {
+            background-color: #16395f;
         }
         .chat-box {
             background-color: #e9ecef;
