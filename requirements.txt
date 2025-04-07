@@ -1,22 +1,15 @@
-# Streamlit app
-streamlit
+streamlit==1.32.2
 
-# Langchain e modelos
-langchain
-langchain-core
-langchain-community
-langchain-groq
-langchain-google-genai
+langchain==0.1.16
+langchain-core==0.1.36
+langchain-community==0.0.34
+langchain-groq==0.0.1
+langchain-google-genai==0.0.5
 
-# Vetorização
-faiss-cpu
+faiss-cpu==1.7.4
+pypdf==3.17.1
+python-dotenv==1.0.1
 
-# Documentos PDF
-pypdf
-langchain-pdf
-
-# Utilitários
-python-dotenv
 
 
 
