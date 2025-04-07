@@ -1,60 +1,77 @@
-# 🤖 Chatbot Documenta Wiki - MDS
+# 📚 Chatbot Documenta Wiki
 
-Este é um aplicativo Streamlit que utiliza **RAG (Retrieval-Augmented Generation)** com a LLM LLaMA3 via Groq para responder dúvidas sobre a **Documenta Wiki**, ferramenta do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS).
+Este é um assistente conversacional baseado em LLM que responde dúvidas sobre a plataforma Documenta Wiki do MDS (Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome).
 
-## 📚 Fontes de conhecimento utilizadas
+O projeto utiliza embeddings semânticos para recuperar trechos de manuais e documentos de referência da ferramenta, e gera respostas com base em um modelo de linguagem hospedado via API Groq.
 
-O sistema utiliza os seguintes documentos oficiais como base de conhecimento:
+## 🚀 Funcionalidades
 
-- Manual de Uso da Documenta Wiki - MDS_SAGICAD.pdf
-- Manual de Uso da Documenta Wiki - Teste.pdf
-- Roteiro video divulgacao.pdf
-- Roteiro_Tutorial_Documenta_Wiki.pdf (roteiro gerado a partir do vídeo institucional)
+- Responde perguntas sobre uso da Documenta Wiki
+- Explica como editar, publicar e solicitar acesso
+- Gera fichas de programas e indicadores com base em orientações (PDFs)
+- Usa vetorização semântica para garantir respostas precisas
+- Compatível com deploy no Streamlit Cloud
 
-## 🚀 Tecnologias utilizadas
+## 🧰 Tecnologias utilizadas
 
-- Streamlit
-- LangChain
-- ChromaDB (vector store)
-- Hugging Face Embeddings (MiniLM-L6-v2)
-- LLM da Groq (LLaMA3-8B)
-- PyPDFLoader
+- [Langchain](https://python.langchain.com/)
+- [Google Generative AI Embeddings (`embedding-001`)](https://ai.google.dev/)
+- [FAISS](https://github.com/facebookresearch/faiss) para vetores em memória
+- [Groq API](https://console.groq.com/)
+- [Streamlit](https://streamlit.io/) como interface
 
-## 🧠 Como funciona
+## ⚙️ Como rodar localmente
 
-1. O usuário carrega os documentos com o botão “Carregar base do chat”
-2. O sistema realiza a vetorização (embeddings + indexação)
-3. O usuário faz perguntas via caixa de entrada
-4. A LLM responde com base nos trechos dos documentos
-5. Quando a pergunta exige informações externas ou atualizadas (como lista de programas), a IA orienta a acessar o portal da Documenta Wiki
+1. Clone o repositório:
 
-## 🛠️ Instalação
+```bash
+git clone https://github.com/mariananresende/Chatbot_Wiki.git
+cd Chatbot_Wiki
 
-1. Clone o repositório
-2. Crie um ambiente virtual e ative-o
+2. Crie um ambiente virtual e ative:
+
+python -m venv venv
+venv\\Scripts\\activate   # no Windows
+
 3. Instale as dependências:
 
-```bash
 pip install -r requirements.txt
-```
 
-4. Adicione sua chave da API da Groq em um arquivo `.env`:
+4. Crie um arquivo .env com sua chave da Groq e Google API:
 
-```
-groq_api_key=SUA_CHAVE_AQUI
-```
+groq_api_key=sk-xxxxxx
+google_api_key=AIza...
 
-5. Rode o aplicativo:
+5. Execute o app:
 
-```bash
 streamlit run app.py
-```
 
-## 🌐 Acesso oficial à plataforma
 
-[https://wiki-sagi.cidadania.gov.br](https://wiki-sagi.cidadania.gov.br)
+☁️ Como publicar no Streamlit Cloud
+Suba o repositório no GitHub
 
-## 📩 Contato institucional
+Acesse https://share.streamlit.io
 
-Em caso de dúvidas, erros ou sugestões, contate:  
-**wiki@mds.gov.br**
+Clique em “New app”
+
+Escolha o repositório e o script app.py
+
+Em Settings > Secrets, adicione:
+
+groq_api_key = "sk-..."
+google_api_key = "AIza..."
+
+
+Clique em Deploy 🎉
+
+📝 Observações
+Ao solicitar a geração de uma ficha de indicador, o assistente usará o documento Ficha de Indicador.pdf como base e pedirá insumos necessários.
+
+Para ficha de programa, é necessário fornecer referências legais e informações técnicas.
+
+📄 Licença
+MIT - Mariana N. Resende, 2025
+
+Propostas de fichas geradas devem ser revisadas antes de uso oficial.
+
+
