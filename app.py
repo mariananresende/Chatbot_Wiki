@@ -29,6 +29,13 @@ if not google_api_key:
     st.error("⚠️ A chave da API da Google (para embeddings) não foi encontrada. Verifique o .env ou o secrets.toml.")
     st.stop()
 
+# ==== Teste das chaves ========
+st.subheader("🔐 Diagnóstico de Secrets")
+
+st.write("Chave Google:", "✅ encontrada" if google_api_key else "❌ não encontrada")
+st.write("Chave Groq:", "✅ encontrada" if groq_api_key else "❌ não encontrada")
+
+
 # === Interface ===
 st.image("wiki.png", width=200)
 st.title("Chat Documenta Wiki - Dúvidas sobre a ferramenta")
