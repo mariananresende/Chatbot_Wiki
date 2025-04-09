@@ -8,7 +8,7 @@ nltk.data.path.append(nltk_data_path)
 from dotenv import load_dotenv
 import streamlit as st
 import time
-from langchain.llms import Groq
+from langchain_groq import ChatGroq
 from langchain.prompts import PromptTemplate
 
 from llama_index import VectorStoreIndex, ServiceContext, SimpleDirectoryReader
@@ -31,11 +31,11 @@ if not GOOGLE_API_KEY:
 
 # === Inicializar modelos ===
 embed_model = GoogleGenerativeAIEmbedding(model="models/embedding-001", api_key=GOOGLE_API_KEY)
-llm_langchain = Groq(api_key=GROQ_API_KEY, model="mixtral-8x7b-32768", temperature=0.1)
+llm_langchain = ChatGroq(api_key=GROQ_API_KEY, model_name="mixtral-8x7b-32768", temperature=0.1)
 llm = LangChainLLM(llm=llm_langchain)
 service_context = ServiceContext.from_defaults(llm=llm, embed_model=embed_model)
 
-# === Aparência da interface ===
+# === Interface Streamlit ===
 st.set_page_config(page_title="Chat Documenta Wiki (LlamaIndex)", layout="wide")
 
 st.markdown("""
@@ -76,11 +76,6 @@ st.markdown("""
 st.image("wiki.png", width=220)
 st.title("Chat Documenta Wiki (LlamaIndex)")
 st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS - versão LlamaIndex")
-
-# === Modelos ===
-embed_model = GooglePaLMEmbedding(model_name="models/embedding-001", api_key=your_api_key)
-llm = Groq(model="llama3-8b-8192", api_key=groq_api_key)
-service_context = ServiceContext.from_defaults(llm=llm, embed_model=embed_model)
 
 # === Prompt personalizado ===
 custom_prompt = PromptTemplate("""\
@@ -123,7 +118,7 @@ Pergunta:
 pdf_files = [
     "Manual_de_Uso_Documenta_Wiki_MDS_SAGICAD.pdf",
     "Roteiro_video_divulgacao.pdf",
-    "Roteiro_Tutorial_Documenta_Wiki.pdf",  # atualizado aqui
+    "Roteiro_Tutorial_Documenta_Wiki.pdf",
     "Ficha de Indicador.pdf",
     "Ficha de Programa.pdf",
     "Protocolo_nomeacao_indicadores.pdf"
@@ -177,4 +172,5 @@ if question and "index" in st.session_state:
             """, unsafe_allow_html=True)
 elif question:
     st.warning("⚠️ Clique em 'Carregar base de conhecimento' antes de perguntar.")
+
 
