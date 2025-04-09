@@ -15,8 +15,8 @@ from llama_index.core import (
     SimpleDirectoryReader,
     ServiceContext,
     PromptTemplate,
-    ResponseSynthesizer,
 )
+from llama_index.response_synthesizers import ResponseSynthesizer
 from llama_index.embeddings.google import GoogleGenerativeAIEmbedding
 from llama_index.llms.groq import Groq
 
