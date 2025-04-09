@@ -1,18 +1,21 @@
 import os
-os.environ["STREAMLIT_WATCHDOG_MODE"] = "poll"  # evita erro de inotify no Streamlit Cloud
+os.environ["STREAMLIT_WATCHDOG_MODE"] = "poll"
 
 import nltk
 nltk_data_path = os.path.join(os.getcwd(), "nltk_data")
 nltk.data.path.append(nltk_data_path)
 
-from dotenv import load_dotenv
-import streamlit as st
 import time
+import streamlit as st
+from dotenv import load_dotenv
+
+# LangChain LLM adaptado para LlamaIndex
 from langchain_groq import ChatGroq
 from langchain.prompts import PromptTemplate
 
-from llama_index import VectorStoreIndex, ServiceContext, SimpleDirectoryReader
-from llama_index.response_synthesizers import get_response_synthesizer
+# ⚠️ Importações ajustadas para nova estrutura do LlamaIndex (v0.10+)
+from llama_index.core import VectorStoreIndex, ServiceContext, SimpleDirectoryReader
+from llama_index.core.response_synthesizers import get_response_synthesizer
 from llama_index.embeddings.google import GoogleGenerativeAIEmbedding
 from llama_index.llms.langchain import LangChainLLM
 
