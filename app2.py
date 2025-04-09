@@ -8,7 +8,7 @@ nltk.data.path.append(nltk_data_path)
 from dotenv import load_dotenv
 import streamlit as st
 import time
-from langchain.llms import Groq
+from langchain_community.llms import Groq
 from langchain.prompts import PromptTemplate
 
 from llama_index import VectorStoreIndex, ServiceContext, SimpleDirectoryReader
