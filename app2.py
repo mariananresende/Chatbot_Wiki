@@ -1,4 +1,5 @@
 import os
+os.environ["STREAMLIT_WATCHDOG_MODE"] = "poll"
 import nltk
 
 # Configuração do caminho local para os dados do NLTK
