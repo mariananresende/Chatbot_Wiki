@@ -19,7 +19,6 @@ from llama_index.core import (
 )
 from llama_index.core.response_synthesizers import get_response_synthesizer
 from llama_index.embeddings.google import GooglePaLMEmbedding
-from llama_index.llms.groq import Groq
 
 # === Carregar variáveis de ambiente ===
 load_dotenv(dotenv_path="Chatbot_Wiki/.env")
