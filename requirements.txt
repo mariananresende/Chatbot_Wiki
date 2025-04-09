@@ -1,15 +1,26 @@
+# Streamlit
 streamlit==1.32.2
+
+# LangChain e ecossistema
 langchain==0.1.16
 langchain-core>=0.1.42,<0.2.0
 langchain-community==0.0.34
 langchain-groq==0.0.1
 langchain-google-genai==0.0.5
+
+# Modelos e embeddings
 google-generativeai>=0.3.1,<0.4.0
 groq>=0.4.1,<1.0.0
+
+# Vetorização
 faiss-cpu>=1.7.4,<2.0.0
-pypdf==3.17.1
+
+# Atualizado para compatibilidade com LlamaIndex mais recente
+pypdf>=4.0.0,<5.0.0
+
+# Outras dependências úteis
 python-dotenv==1.0.1
 
-# LlamaIndex e suas dependências
+# LlamaIndex e NLP
 llama-index>=0.10.28,<0.11.0
 nltk>=3.8.1,<4.0.0
