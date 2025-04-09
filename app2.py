@@ -16,7 +16,7 @@ from llama_index.core import (
     ServiceContext,
     PromptTemplate,
 )
-from llama_index.core.response_synthesizers import ResponseSynthesizer
+from llama_index.core.response_synthesizers.response_synthesizer import ResponseSynthesizer
 from llama_index.embeddings.google import GoogleGenerativeAIEmbedding
 from llama_index.llms.groq import Groq
 
