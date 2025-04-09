@@ -1,23 +1,22 @@
 import os
-os.environ["STREAMLIT_WATCHDOG_MODE"] = "poll"
+os.environ["STREAMLIT_WATCHDOG_MODE"] = "poll"  # evita erro de inotify no Streamlit Cloud
 
 import nltk
 nltk_data_path = os.path.join(os.getcwd(), "nltk_data")
 nltk.data.path.append(nltk_data_path)
 
-import time
-import streamlit as st
 from dotenv import load_dotenv
+import streamlit as st
+import time
 
-# LangChain LLM adaptado para LlamaIndex
+# === Importações atualizadas ===
 from langchain_groq import ChatGroq
 from langchain.prompts import PromptTemplate
 
-# ⚠️ Importações ajustadas para nova estrutura do LlamaIndex (v0.10+)
 from llama_index.core import VectorStoreIndex, ServiceContext, SimpleDirectoryReader
 from llama_index.core.response_synthesizers import get_response_synthesizer
 from llama_index.embeddings.google import GooglePaLMEmbedding
-from llama_index.llms.langchain import LangChainLLM
+from llama_index.llms.langchain_compat import LangChainLLM
 
 # === Carregar variáveis de ambiente ===
 load_dotenv(dotenv_path="Chatbot_Wiki/.env")
@@ -34,7 +33,7 @@ if not GOOGLE_API_KEY:
 
 # === Inicializar modelos ===
 embed_model = GooglePaLMEmbedding(model_name="models/embedding-001", api_key=GOOGLE_API_KEY)
-llm_langchain = ChatGroq(api_key=GROQ_API_KEY, model_name="mixtral-8x7b-32768", temperature=0.1)
+llm_langchain = ChatGroq(api_key=GROQ_API_KEY, model="mixtral-8x7b-32768", temperature=0.1)
 llm = LangChainLLM(llm=llm_langchain)
 service_context = ServiceContext.from_defaults(llm=llm, embed_model=embed_model)
 
@@ -175,5 +174,6 @@ if question and "index" in st.session_state:
             """, unsafe_allow_html=True)
 elif question:
     st.warning("⚠️ Clique em 'Carregar base de conhecimento' antes de perguntar.")
+
 
 
