@@ -1,38 +1,64 @@
 import os
-os.environ["STREAMLIT_WATCHDOG_MODE"] = "poll"
-import nltk
+os.environ["STREAMLIT_WATCHDOG_MODE"] = "poll"  # evita erro de inotify no Streamlit Cloud
 
-# Configuração do caminho local para os dados do NLTK
+import nltk
 nltk_data_path = os.path.join(os.getcwd(), "nltk_data")
 nltk.data.path.append(nltk_data_path)
 
 from dotenv import load_dotenv
 import streamlit as st
-import time
+from langchain.llms import Groq
+from langchain.prompts import PromptTemplate
 
-# === LlamaIndex ===
-from llama_index.core import (
-    VectorStoreIndex,
-    SimpleDirectoryReader,
-    ServiceContext,
-    PromptTemplate,
-)
-from llama_index.core.response_synthesizers import get_response_synthesizer
-from llama_index.embeddings.google import GooglePaLMEmbedding
+from llama_index import VectorStoreIndex, ServiceContext, SimpleDirectoryReader
+from llama_index.embeddings.google import GoogleGenerativeAIEmbedding
+from llama_index.llms.langchain import LangChainLLM
 
 # === Carregar variáveis de ambiente ===
 load_dotenv(dotenv_path="Chatbot_Wiki/.env")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
-groq_api_key = os.getenv("groq_api_key") or st.secrets.get("groq_api_key")
-google_api_key = os.getenv("google_api_key") or st.secrets.get("google_api_key")
+if not GROQ_API_KEY:
+    raise ValueError("GROQ_API_KEY não encontrada. Verifique seu arquivo .env")
 
-if not groq_api_key:
-    st.error("❌ Chave da Groq não encontrada.")
-    st.stop()
+if not GOOGLE_API_KEY:
+    raise ValueError("GOOGLE_API_KEY não encontrada. Verifique seu arquivo .env")
 
-if not google_api_key:
-    st.error("❌ Chave da Google API não encontrada.")
-    st.stop()
+# === Inicializar embedding com Google ===
+embed_model = GoogleGenerativeAIEmbedding(model="models/embedding-001", api_key=GOOGLE_API_KEY)
+
+# === Inicializar LLM Groq com LangChain ===
+llm_langchain = Groq(
+    api_key=GROQ_API_KEY,
+    model="mixtral-8x7b-32768",
+    temperature=0.1
+)
+
+# === Adaptar LLM do LangChain para LlamaIndex ===
+llm = LangChainLLM(llm=llm_langchain)
+
+# === Inicializar contexto de serviço ===
+service_context = ServiceContext.from_defaults(llm=llm, embed_model=embed_model)
+
+# === Carregar documentos ===
+documents = SimpleDirectoryReader(input_dir="docs_wiki", recursive=True).load_data()
+index = VectorStoreIndex.from_documents(documents, service_context=service_context)
+
+# === Criar consulta ===
+query_engine = index.as_query_engine()
+
+# === Interface Streamlit ===
+st.set_page_config(page_title="Chatbot Documenta Wiki", layout="wide")
+st.title("🤖 Chatbot - Documenta Wiki")
+
+query = st.text_input("Digite sua pergunta:", placeholder="Ex: Como cadastrar um novo programa?")
+
+if query:
+    with st.spinner("Pensando..."):
+        response = query_engine.query(query)
+        st.markdown("---")
+        st.markdown(response.response)
 
 # === Aparência da interface ===
 st.set_page_config(page_title="Chat Documenta Wiki (LlamaIndex)", layout="wide")
