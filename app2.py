@@ -17,7 +17,7 @@ from llama_index.core import (
     PromptTemplate,
 )
 from llama_index.core.response_synthesizers import get_response_synthesizer
-from llama_index.embeddings.google import GoogleGenerativeAIEmbedding
+from llama_index.embeddings.google import GooglePaLMEmbedding
 from llama_index.llms.groq import Groq
 
 # === Carregar variáveis de ambiente ===
@@ -77,7 +77,7 @@ st.title("Chat Documenta Wiki (LlamaIndex)")
 st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS - versão LlamaIndex")
 
 # === Modelos ===
-embed_model = GoogleGenerativeAIEmbedding(model_name="models/embedding-001", api_key=google_api_key)
+embed_model = GooglePaLMEmbedding(model_name="models/embedding-001", api_key=your_api_key)
 llm = Groq(model="llama3-8b-8192", api_key=groq_api_key)
 service_context = ServiceContext.from_defaults(llm=llm, embed_model=embed_model)
 
