@@ -16,7 +16,7 @@ from langchain.prompts import PromptTemplate
 from llama_index.core import VectorStoreIndex, ServiceContext, SimpleDirectoryReader
 from llama_index.core.response_synthesizers import get_response_synthesizer
 from llama_index.embeddings.google import GooglePaLMEmbedding
-from llama_index.llms.langchain_compat import LangChainLLM
+from llama_index.llms.langchain import LangChainLLM
 
 # === Carregar variáveis de ambiente ===
 load_dotenv(dotenv_path="Chatbot_Wiki/.env")
