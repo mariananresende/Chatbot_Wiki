@@ -2,6 +2,13 @@ from dotenv import load_dotenv
 import streamlit as st
 import os
 import time
+import nltk
+
+# Redirecionar os downloads do NLTK para pasta local
+nltk_data_path = os.path.join(os.getcwd(), "nltk_data")
+os.makedirs(nltk_data_path, exist_ok=True)
+nltk.data.path.append(nltk_data_path)
+
 
 # LlamaIndex e integração
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, ServiceContext
