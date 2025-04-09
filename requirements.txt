@@ -23,8 +23,7 @@ pypdf>=4.0.0,<5.0.0
 python-dotenv==1.0.1
 
 # LlamaIndex e NLP
-llama-index>=0.10.28,<0.11.0
+llama-index==0.10.68.post1
 llama-index-embeddings-google==0.1.4
 llama-index-llms-langchain==0.1.1
 nltk>=3.8.1,<4.0.0
-
