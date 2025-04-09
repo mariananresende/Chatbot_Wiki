@@ -24,3 +24,5 @@ python-dotenv==1.0.1
 # LlamaIndex e NLP
 llama-index>=0.10.28,<0.11.0
 nltk>=3.8.1,<4.0.0
+llama-index-embeddings-google==0.1.3
+
