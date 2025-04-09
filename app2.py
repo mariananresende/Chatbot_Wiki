@@ -17,7 +17,7 @@ from llama_index.core import (
     PromptTemplate,
 )
 from llama_index.core.response_synthesizers import get_response_synthesizer
-from llama_index.embeddings.google import GoogleGenerativeAIEmbedding
+from llama_index.embeddings.google_genai import GoogleGenerativeAIEmbedding
 from llama_index.llms.groq import Groq
 
 # === Carregar variáveis de ambiente ===
