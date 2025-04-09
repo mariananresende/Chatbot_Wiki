@@ -7,6 +7,9 @@ langchain-google-genai==0.0.5
 google-generativeai>=0.3.1,<0.4.0
 groq>=0.4.1,<1.0.0
 faiss-cpu>=1.7.4,<2.0.0
-pypdf>=4.0.1,<5.0.0           # <--- compatível com Langchain e LlamaIndex
+pypdf==3.17.1
 python-dotenv==1.0.1
-llama-index>=0.10.28,<0.11.0  # <--- apenas adicionado
+
+# LlamaIndex e suas dependências
+llama-index>=0.10.28,<0.11.0
+nltk>=3.8.1,<4.0.0
