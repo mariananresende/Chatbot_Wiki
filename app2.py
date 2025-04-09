@@ -16,7 +16,7 @@ from llama_index.core import (
     ServiceContext,
     PromptTemplate,
 )
-from llama_index.core.response_synthesizers.response_synthesizer import ResponseSynthesizer
+from llama_index.core.response_synthesizers import get_response_synthesizer
 from llama_index.embeddings.google import GoogleGenerativeAIEmbedding
 from llama_index.llms.groq import Groq
 
@@ -135,7 +135,7 @@ if "index" not in st.session_state:
                 docs = SimpleDirectoryReader(input_files=pdf_files).load_data()
                 index = VectorStoreIndex.from_documents(docs, service_context=service_context)
 
-                response_synthesizer = ResponseSynthesizer.from_args(
+                response_synthesizer = get_response_synthesizer(
                     service_context=service_context,
                     text_qa_template=custom_prompt
                 )
