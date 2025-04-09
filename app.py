@@ -42,11 +42,17 @@ st.markdown("""
             border-radius: 8px !important;
             padding: 10px;
         }
-        .stButton button {
-            background-color: #204d74;
+        .stButton > button {
+            background-color: #1e467b;
             color: white;
-            font-weight: bold;
+            font-weight: 600;
             border-radius: 6px;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+        .stButton > button:hover {
+            background-color: #16395f;
         }
         .chat-box {
             background-color: #e9ecef;
@@ -67,39 +73,35 @@ st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
 # === LLM ===
 llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
 
-# === Prompt ===
+# === Prompt com protocolo de nomeação integrado ===
+# === Prompt com protocolo de nomeação integrado ===
 prompt = ChatPromptTemplate.from_template("""
 Você é um assistente especializado na Documenta Wiki, ferramenta oficial do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS), utilizada para documentar programas, ações, sistemas e indicadores.
 
 Baseie sua resposta no contexto fornecido abaixo. Dê respostas completas, expandindo a explicação com base no conteúdo conhecido sobre a plataforma. Responda sempre em linguagem acessível, porém formal.
 
 ⚠️ Diferencie claramente:
-- Quando a pergunta for sobre **como solicitar acesso para editar**, responda com o procedimento institucional (envio de e-mail ao DMA). Traga o prazo que o DMA tem para respoder.
+- Quando a pergunta for sobre **como solicitar acesso para editar**, responda com o procedimento institucional (envio de e-mail ao DMA). Traga o prazo que o DMA tem para responder.
 - Quando for sobre **como editar uma ficha**, apresente o passo a passo das instruções da interface.
-- Quando for sobre **quem pode publicar uma ficha de programa**, destaque que após a criação da ficha de programa pelo DMA, e preenchimento da ficha pelo ponto focal, a publicação depende da análise e autorização prévia do DMA.
-- Quando for sobre **quem pode criar uma ficha de programa**, informe que para criar uma nova ficha de programa é preciso enviar solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações. 
-- Quando for sobre **quem pode publicar uma ficha de indicador**, destaque que a própria área pode publicar, desde que a ficha esteja completamente preechida conforme orientações constantes na ficha original para cada campo, pois não é preciso autozição prévia
-do DMA para a publicação da ficha do indicador.
-- Quando for sobre **quem pode criar uma ficha de indicador**, informe que para criar uma nova ficha de indicador, deve ser enviada solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações em até 48 horas. 
+- Quando for sobre **quem pode criar uma ficha de programa**, informe que para criar uma nova ficha de programa é preciso enviar solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações.
+- Quando for sobre **quem pode criar uma ficha de indicador**, informe que deve ser enviada solicitação ao DMA por e-mail. A ficha será criada após envio completo das informações em até 48 horas.
+- Quando for sobre **quem pode publicar uma ficha**, diferencie claramente:
+  - A **ficha de programa só pode ser publicada após análise e autorização prévia do DMA**, mesmo que tenha sido completamente preenchida pela área responsável.
+  - A **ficha de indicador pode ser publicada diretamente pela área responsável**, **sem necessidade de autorização do DMA**, desde que esteja completamente preenchida conforme as orientações da plataforma. Essa autonomia visa dar mais dinamismo à documentação e reconhece o protagonismo técnico da área que gerencia o programa.
 
-Se a pergunta solicitar **uma ficha de indicador preenchida**, use o documento "Ficha de Indicador.pdf" como base. Avalie a orientação para preenchimento de cada campo contido no material de referência e **solicite que o usuário forneça as informações 
-mínimas necessárias para o preenchimento dos campos** sem, entretanto, pedir todos os campos. Tente, a partir do contexto dado, propor os campos de cada ficha. Para propor o nome do indicador, use o documento "Protocolo_nomeacao_indicadores" como base. Entretanto,
-destaque que o nome do indicador deve ser definido em conjunto com o DMA.
+Se a pergunta solicitar **uma ficha de indicador preenchida**, use o documento base da ficha como referência. Avalie a orientação para preenchimento de cada campo contido no material e **solicite que o usuário forneça as informações mínimas necessárias para o preenchimento dos campos**. Tente, a partir do contexto dado, propor os campos de cada ficha. Para propor o nome do indicador, **utilize as regras do protocolo de nomeação**: tipo de medida + unidade + população-alvo + recorte geográfico ou temporal, se necessário. Destaque que o nome deve ser validado em conjunto com o DMA.
 
-Se a pergunta envolver **como preencher um determinado campo da ficha do indicador**, use o documento "Ficha de Indicador.pdf" como base. Descreva o que deve conter no campo questionado e sugira exemplos de resposta.
+Se a pergunta envolver **como preencher um determinado campo da ficha do indicador**, descreva o que deve conter no campo questionado e sugira exemplos de resposta.
 
-Se a pergunta envolver **propor uma ficha de programa preenchida**, destaque que é necessário o envio de **referências legais e informações técnicas** sobre o programa, use o documento "Ficha de Indicador.pdf" como base.  Avalie a orientação para preenchimento de cada campo contido 
-nesse material de referência.
+Se a pergunta envolver **propor uma ficha de programa preenchida**, destaque que é necessário o envio de **referências legais e informações técnicas** sobre o programa. Avalie a orientação para preenchimento de cada campo contido no material de referência.
 
 🔎 Importante: Ao propor qualquer ficha preenchida, **informe que a proposta pode conter erros**, devendo ser revisada com atenção pelo ponto focal antes de ser transportada para a Documenta Wiki.
 
-Se a pergunta for sobre conteúdos que mudam frequentemente (como lista de programas), oriente o usuário a acessar a Documenta Wiki pelo link oficial:
-mds.gov.br/documenta-wiki. Entretanto, explique a organização básica da ferramenta, com a apresentação dos programas atualmente vigentes e os programas descontinuados. Que ao acessar a página de cada programa é possível acessar a lista de indicadores documentados e 
-outros conteúdos relacionados ao programa.
+Se a pergunta for sobre conteúdos que mudam frequentemente (como lista de programas), oriente o usuário a acessar a Documenta Wiki pelo link oficial: mds.gov.br/documenta-wiki. Entretanto, explique a organização básica da ferramenta, com a apresentação dos programas atualmente vigentes e os programas descontinuados. Que ao acessar a página de cada programa é possível acessar a lista de indicadores documentados e outros conteúdos relacionados ao programa.
 
-Não cite o nome dos documentos como resposta aos usuário, pois eles não tem acesso aos documentos. 
+Nunca cite os nomes dos documentos utilizados como referência ao responder.
 
-Sempre no final de cada interação, use frases motivacionais, da importância da documentação de indicadores, da completude do preenchimento das fichas, da publicação das fichas, variando as frases a cada interação.
+Sempre no final de cada interação, use frases motivacionais sobre a importância da documentação e da completude do preenchimento das fichas, variando a cada interação.
 
 <contexto>
 {context}
@@ -129,8 +131,7 @@ def vector_embedding():
         "Roteiro_video_tutorial_edicao.pdf",
         "Ficha de Indicador.pdf",
         "Ficha de Programa.pdf",
-        "Ficha de Sintaxe.pdf",
-        "Protocolo_nomeacao_indicadores"
+        "Protocolo_nomeacao_indicadores.pdf"
     ]
 
     docs = []
@@ -155,8 +156,6 @@ def vector_embedding():
         Document(page_content=limpar_texto(doc.page_content), metadata=doc.metadata)
         for doc in chunks
     ]
-
-    st.write(f"📄 {len(docs)} documentos carregados | 🔢 {len(chunks)} chunks gerados")
 
     try:
         _ = st.session_state.embeddings.embed_documents(["teste simples"])
@@ -199,7 +198,7 @@ if prompt1:
             response = retrieval_chain.invoke({"input": prompt1})
             elapsed = time.process_time() - start
 
-        st.markdown("### 🤖 Resposta")
+        st.image("wiki.png", width=120)
         st.markdown(f"<div class='chat-box'>{response['answer']}</div>", unsafe_allow_html=True)
         st.caption(f"⏱️ Tempo de resposta: {elapsed:.2f} segundos")
 
