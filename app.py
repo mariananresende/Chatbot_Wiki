@@ -36,12 +36,15 @@ st.markdown("""
         html, body {
             font-family: 'Segoe UI', sans-serif;
         }
+
         .stTextArea textarea {
             font-size: 16px !important;
             border-radius: 8px !important;
             padding: 10px;
-            color: #111 !important;
+            background-color: #ffffff !important;
+            color: #111111 !important;
         }
+
         .stButton > button {
             background-color: #2c3e50;
             color: #f5f5f5;
@@ -51,11 +54,13 @@ st.markdown("""
             padding: 0.5rem 1.2rem;
             transition: background-color 0.3s ease;
         }
+
         .stButton > button:hover {
             background-color: #1a252f;
         }
+
         .chat-box {
-            background-color: #ffffff0d;  /* semi-transparente adaptável */
+            background-color: #ffffff0d;
             color: var(--text-color, #212121);
             padding: 1rem;
             border-left: 5px solid #4a90e2;
@@ -65,8 +70,13 @@ st.markdown("""
             backdrop-filter: blur(4px);
         }
 
-        /* Dark mode fallback for older streamlit versions */
+        /* Dark mode fallback and overrides */
         @media (prefers-color-scheme: dark) {
+            .stTextArea textarea {
+                background-color: #2e2e2e !important;
+                color: #f0f0f0 !important;
+            }
+
             .chat-box {
                 background-color: #1e1e1e;
                 color: #f0f0f0;
@@ -75,6 +85,7 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 # === Cabeçalho ===
 st.image("wiki.png", width=220)
