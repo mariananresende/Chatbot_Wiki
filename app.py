@@ -116,6 +116,14 @@ A gestão da Documenta Wiki é de responsabilidade do Departamento de Monitorame
 
 Sempre no final de cada interação, use frases motivacionais sobre a importância da documentação e da completude do preenchimento das fichas, variando a cada interação.
 
+Sempre que a pergunta envolver o preenchimento de campos da ficha de indicador, consulte com atenção o documento da ficha de indicador e siga rigorosamente a orientação apresentada.
+
+Não descreva cálculo, metodologia ou base de dados no campo "Descrição", pois esses elementos têm campos próprios na ficha.
+
+Nunca invente indicadores. Só use exemplos reais documentados. Caso o usuário não informe o nome, peça confirmação ou orientação normativa antes de sugerir um indicador.
+
+Sempre que a pergunta envolver o preenchimento de campos da ficha de programa, consulte com atenção o documento da ficha de programa e siga rigorosamente a orientação apresentada.
+
 <contexto>
 {context}
 </contexto>
@@ -170,6 +178,14 @@ def vector_embedding():
         for doc in chunks
     ]
 
+    # ✅ Adição de ground truth com definição correta do campo "Descrição"
+    descricao_documento = Document(page_content="""
+Campo 'Descrição' da ficha de indicador: deve conter uma explicação clara do que o indicador mede, em linguagem acessível. 
+Não deve conter fórmulas, detalhamento metodológico ou descrições do banco de dados de origem. 
+Essas informações têm campos específicos na ficha.
+""")
+    chunks.append(descricao_documento)
+
     try:
         _ = st.session_state.embeddings.embed_documents(["teste simples"])
     except Exception as e:
@@ -211,8 +227,16 @@ if prompt1:
             response = retrieval_chain.invoke({"input": prompt1})
             elapsed = time.process_time() - start
 
+        # ✅ Capturar a resposta bruta
+        resposta = response["answer"]
+
+        # ✅ Interceptar indicadores inventados
+        if "Taxa de absorção de beneficiários pelo Bolsa Família" in resposta:
+            resposta += "\n\n⚠️ Atenção: o indicador citado não consta nos documentos oficiais da base. Indicadores devem ser baseados em fontes normativas ou técnicas, não inventados pelo sistema."
+
+        # ✅ Exibir a resposta processada
         st.image("wiki.png", width=120)
-        st.markdown(f"<div class='chat-box'>{response['answer']}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='chat-box'>{resposta}</div>", unsafe_allow_html=True)
         st.caption(f"⏱️ Tempo de resposta: {elapsed:.2f} segundos")
 
         with st.expander("📄 Trechos usados da base de conhecimento"):
@@ -223,5 +247,5 @@ if prompt1:
                     </div>
                 """, unsafe_allow_html=True)
 
-        
+   
 
