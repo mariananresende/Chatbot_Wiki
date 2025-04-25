@@ -37,6 +37,11 @@ st.markdown("""
             font-family: 'Segoe UI', sans-serif;
         }
 
+        /* Título roxo escuro */
+        h1 {
+            color: #5e4b8b;
+        }
+
         .stTextArea textarea {
             font-size: 16px !important;
             border-radius: 8px !important;
@@ -46,8 +51,8 @@ st.markdown("""
         }
 
         .stButton > button {
-            background-color: #2c3e50;
-            color: #f5f5f5;
+            background-color: #2e7d32;  /* verde escuro */
+            color: #ffffff;
             font-weight: 600;
             border-radius: 6px;
             border: none;
@@ -56,7 +61,7 @@ st.markdown("""
         }
 
         .stButton > button:hover {
-            background-color: #1a252f;
+            background-color: #1b5e20;  /* verde ainda mais escuro */
         }
 
         .chat-box {
@@ -70,7 +75,7 @@ st.markdown("""
             backdrop-filter: blur(4px);
         }
 
-        /* Dark mode fallback and overrides */
+        /* Dark mode fallback */
         @media (prefers-color-scheme: dark) {
             .stTextArea textarea {
                 background-color: #2e2e2e !important;
@@ -85,6 +90,7 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 # === Cabeçalho ===
