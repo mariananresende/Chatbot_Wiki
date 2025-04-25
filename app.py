@@ -38,7 +38,7 @@ st.markdown("""
         }
 
         h1 {
-            color: #545DAD;  /* Roxo da logo Documenta Wiki */
+            color: #4F0D74;  /* Roxo da logo Documenta Wiki */
         }
 
         .stTextArea textarea {
