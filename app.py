@@ -37,9 +37,8 @@ st.markdown("""
             font-family: 'Segoe UI', sans-serif;
         }
 
-        /* Título roxo escuro */
         h1 {
-            color: #5e4b8b;
+            color: #545DAD;  /* Roxo da logo Documenta Wiki */
         }
 
         .stTextArea textarea {
@@ -51,7 +50,7 @@ st.markdown("""
         }
 
         .stButton > button {
-            background-color: #2e7d32;  /* verde escuro */
+            background-color: #2e7d32;  /* Verde escuro */
             color: #ffffff;
             font-weight: 600;
             border-radius: 6px;
@@ -61,7 +60,7 @@ st.markdown("""
         }
 
         .stButton > button:hover {
-            background-color: #1b5e20;  /* verde ainda mais escuro */
+            background-color: #1b5e20;
         }
 
         .chat-box {
@@ -75,7 +74,6 @@ st.markdown("""
             backdrop-filter: blur(4px);
         }
 
-        /* Dark mode fallback */
         @media (prefers-color-scheme: dark) {
             .stTextArea textarea {
                 background-color: #2e2e2e !important;
@@ -90,6 +88,7 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 
