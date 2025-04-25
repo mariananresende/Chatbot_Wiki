@@ -33,18 +33,18 @@ st.set_page_config(page_title="Chat Documenta Wiki", layout="wide")
 
 st.markdown("""
     <style>
-        body {
-            background-color: #f5f7fa;
+        html, body {
             font-family: 'Segoe UI', sans-serif;
         }
         .stTextArea textarea {
             font-size: 16px !important;
             border-radius: 8px !important;
             padding: 10px;
+            color: #111 !important;
         }
         .stButton > button {
-            background-color: #1e467b;
-            color: white;
+            background-color: #2c3e50;
+            color: #f5f5f5;
             font-weight: 600;
             border-radius: 6px;
             border: none;
@@ -52,15 +52,26 @@ st.markdown("""
             transition: background-color 0.3s ease;
         }
         .stButton > button:hover {
-            background-color: #16395f;
+            background-color: #1a252f;
         }
         .chat-box {
-            background-color: #e9ecef;
+            background-color: #ffffff0d;  /* semi-transparente adaptável */
+            color: var(--text-color, #212121);
             padding: 1rem;
-            border-left: 5px solid #204d74;
-            border-radius: 5px;
+            border-left: 5px solid #4a90e2;
+            border-radius: 8px;
             margin-top: 1rem;
             font-size: 16px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Dark mode fallback for older streamlit versions */
+        @media (prefers-color-scheme: dark) {
+            .chat-box {
+                background-color: #1e1e1e;
+                color: #f0f0f0;
+                border-left: 5px solid #4a90e2;
+            }
         }
     </style>
 """, unsafe_allow_html=True)
@@ -78,7 +89,7 @@ llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
 prompt = ChatPromptTemplate.from_template("""
 Você é um assistente especializado na Documenta Wiki, ferramenta oficial do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS), utilizada para documentar programas, ações, sistemas e indicadores.
 
-Baseie sua resposta no contexto fornecido abaixo. Dê respostas completas, expandindo a explicação com base no conteúdo conhecido sobre a plataforma. Responda sempre em linguagem acessível, porém formal.
+Baseie sua resposta no contexto fornecido abaixo. Dê respostas completas, expandindo a explicação com base no conteúdo conhecido sobre a plataforma. Responda sempre em linguagem acessível, porém formal e sempre em português.
 
 ⚠️ Diferencie claramente:
 - Quando a pergunta for sobre **como solicitar acesso para editar**, responda com o procedimento institucional (envio de e-mail ao DMA). Traga o prazo que o DMA tem para responder.
