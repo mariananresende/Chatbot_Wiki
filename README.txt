@@ -1,54 +1,64 @@
-# 📚 Chatbot Documenta Wiki
+📚 Chatbot Documenta Wiki
+Este é um assistente conversacional baseado em modelos de linguagem (LLM) voltado para auxiliar no uso da Documenta Wiki, plataforma oficial do Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome (MDS). Ele responde perguntas sobre a ferramenta, gera fichas de programas e indicadores, e orienta pontos focais quanto às regras de preenchimento.
 
-Este é um assistente conversacional baseado em LLM que responde dúvidas sobre a plataforma Documenta Wiki do MDS (Ministério do Desenvolvimento e Assistência Social, Família e Combate à Fome).
+🚀 Funcionalidades
+🧠 Responde dúvidas sobre uso da Documenta Wiki
 
-O projeto utiliza embeddings semânticos para recuperar trechos de manuais e documentos de referência da ferramenta, e gera respostas com base em um modelo de linguagem hospedado via API Groq.
+✏️ Explica como editar, publicar e solicitar acesso às fichas
 
-## 🚀 Funcionalidades
+📄 Gera propostas de fichas de programa e indicador com base em documentos oficiais (PDFs)
 
-- Responde perguntas sobre uso da Documenta Wiki
-- Explica como editar, publicar e solicitar acesso
-- Gera fichas de programas e indicadores com base em orientações (PDFs)
-- Usa vetorização semântica para garantir respostas precisas
-- Compatível com deploy no Streamlit Cloud
+🧭 Utiliza vetorização semântica para garantir precisão nas respostas
 
-## 🧰 Tecnologias utilizadas
+☁️ Compatível com deploy no Streamlit Cloud
 
-- [Langchain](https://python.langchain.com/)
-- [Google Generative AI Embeddings (`embedding-001`)](https://ai.google.dev/)
-- [FAISS](https://github.com/facebookresearch/faiss) para vetores em memória
-- [Groq API](https://console.groq.com/)
-- [Streamlit](https://streamlit.io/) como interface
+🧰 Tecnologias utilizadas
+LangChain — para orquestração do RAG
 
-## ⚙️ Como rodar localmente
+Google Generative AI Embeddings (embedding-001) — para gerar vetores semânticos
 
-1. Clone o repositório:
+FAISS — para indexação dos documentos
 
-```bash
+Groq API — hospedagem do modelo LLM (LLaMA 3)
+
+Streamlit — como interface web
+
+⚙️ Como rodar localmente
+Clone o repositório:
+
+bash
+Copiar
+Editar
 git clone https://github.com/mariananresende/Chatbot_Wiki.git
 cd Chatbot_Wiki
+Crie um ambiente virtual e ative:
 
-2. Crie um ambiente virtual e ative:
-
+bash
+Copiar
+Editar
 python -m venv venv
-venv\\Scripts\\activate   # no Windows
+venv\Scripts\activate  # Windows
+Instale as dependências:
 
-3. Instale as dependências:
-
+bash
+Copiar
+Editar
 pip install -r requirements.txt
+Crie um arquivo .env com suas chaves:
 
-4. Crie um arquivo .env com sua chave da Groq e Google API:
-
-groq_api_key=sk-xxxxxx
+env
+Copiar
+Editar
+groq_api_key=sk-xxxxxxx
 google_api_key=AIza...
+Execute o app:
 
-5. Execute o app:
-
+bash
+Copiar
+Editar
 streamlit run app.py
-
-
 ☁️ Como publicar no Streamlit Cloud
-Suba o repositório no GitHub
+Suba o repositório para o GitHub
 
 Acesse https://share.streamlit.io
 
@@ -58,20 +68,23 @@ Escolha o repositório e o script app.py
 
 Em Settings > Secrets, adicione:
 
+text
+Copiar
+Editar
 groq_api_key = "sk-..."
 google_api_key = "AIza..."
-
-
 Clique em Deploy 🎉
 
-📝 Observações
-Ao solicitar a geração de uma ficha de indicador, o assistente usará o documento Ficha de Indicador.pdf como base e pedirá insumos necessários.
+📝 Observações importantes
+Ao solicitar a geração de uma ficha de indicador, o assistente usará o conteúdo do PDF Ficha de Indicador.pdf como referência e pedirá os insumos mínimos para preenchimento.
 
-Para ficha de programa, é necessário fornecer referências legais e informações técnicas.
+Para a ficha de programa, o usuário deverá fornecer referências legais e informações técnicas.
+
+A proposta de nome de indicador segue as regras do Protocolo de Nomeação, integradas ao prompt.
+
+Indicadores e fichas geradas são apenas sugestões e devem ser revisadas pela equipe técnica antes do uso oficial.
 
 📄 Licença
 MIT - Mariana N. Resende, 2025
-
-Propostas de fichas geradas devem ser revisadas antes de uso oficial.
 
 
