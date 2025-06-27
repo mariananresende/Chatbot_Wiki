@@ -43,16 +43,16 @@ st.markdown("""
             padding: 10px;
         }
         .stButton > button {
-            background-color: white !important;
-            color: #1e467b !important;
-            font-weight: 600 !important;
-            border: 2px solid #1e467b !important;
-            border-radius: 999px !important;
-            padding: 0.5rem 1.5rem !important;
-            transition: all 0.3s ease;
+            background-color: #1e467b;
+            color: white;
+            font-weight: 600;
+            border-radius: 6px;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            transition: background-color 0.3s ease;
         }
         .stButton > button:hover {
-            background-color: #e7f1ff !important;
+            background-color: #16395f;
         }
         .chat-box {
             background-color: #e9ecef;
@@ -66,19 +66,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # === Cabeçalho ===
-st.markdown("""
-    <div style='background-color:#fff3cd; padding:15px; border-left:6px solid #f5c6cb; border-radius:5px; margin-bottom:20px;'>
-        <strong style='color:#b02a37; font-size:18px;'>Atenção!</strong><br><br>
-        As respostas deste chatbot usam como referência o conteúdo oficial produzido pelo Departamento de Monitoramento e Avaliação (DMA/Sagicad) para orientação aos pontos focais com perfil de edição.<br><br>
-        É importante revisar as respostas obtidas de modo a incluir o seu conhecimento pessoal a respeito do programa para que a documentação seja a mais correta possível.
-    </div>
-""", unsafe_allow_html=True)
-
-st.image("wiki.png", width=220)
-st.title("Chat Documenta Wiki")
-st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
-
-
 st.image("wiki.png", width=220)
 st.title("Chat Documenta Wiki")
 st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
@@ -191,17 +178,6 @@ prompt1 = st.text_area(
     placeholder="Ex: Como editar uma ficha de indicador? Ou: Quem pode publicar uma ficha de programa?",
     key="user_input"
 )
-
-# === Sugestões de perguntas úteis ===
-st.markdown("""
-    <div style='margin-top: 30px; margin-bottom:10px; font-size:16px;'>
-        <strong>❓ Sugestões de perguntas:</strong><br>
-        • Como ter perfil de edição?<br>
-        • O que devo colocar no campo <em>Descrição e Interpretação</em> na ficha do indicador?<br>
-        • Como publicar uma ficha de indicador?<br>
-    </div>
-""", unsafe_allow_html=True)
-
 
 # === Botão de carregamento ===
 if st.button("Carregar base do chat"):
