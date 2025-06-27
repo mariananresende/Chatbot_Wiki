@@ -183,7 +183,7 @@ def vector_embedding():
 prompt1 = st.text_area(
     "Digite sua pergunta sobre a Documenta Wiki abaixo:",
     height=100,
-    placeholder="Ex:\nComo editar uma ficha de indicador?\nQuem pode publicar uma ficha de programa?\nO que devo colocar no campo Descrição e Interpretação na ficha do indicador?",
+    placeholder="Exemplos:\nComo editar uma ficha de indicador?\nQuem pode publicar uma ficha de programa?\nO que devo colocar no campo Descrição e Interpretação na ficha do indicador?",
     key="user_input"
 )
 
