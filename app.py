@@ -70,7 +70,7 @@ st.markdown("""
     <div style='background-color:#fff3cd; padding:15px; border-left:6px solid #f5c6cb; border-radius:5px; margin-bottom:20px;'>
         <strong style='color:#b02a37; font-size:18px;'>Atenção!</strong><br><br>
         As respostas deste chatbot usam como referência o conteúdo oficial produzido pelo Departamento de Monitoramento e Avaliação (DMA/Sagicad) para orientação aos pontos focais com perfil de edição.<br><br>
-        É importante revisar as respostas obtidas de modo a incluir o seu conhecimento pessoal a respeito do programa para que a documentação seja a mais correta possível.
+        É importante revisar as respostas obtidas de modo a incluir o seu conhecimento pessoal a respeito do programa para que a documentação seja correta e a mais completa possível.
     </div>
 """, unsafe_allow_html=True)
 
@@ -78,10 +78,6 @@ st.image("wiki.png", width=220)
 st.title("Chat Documenta Wiki")
 st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
 
-
-st.image("wiki.png", width=220)
-st.title("Chat Documenta Wiki")
-st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
 
 # === LLM ===
 llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
