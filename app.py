@@ -65,6 +65,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+st.image("wiki.png", width=220)
+st.title("Chat Documenta Wiki")
+st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
+
 # === Cabeçalho ===
 st.markdown("""
     <div style='padding:10px; border-left:3px solid #a71d2a; margin-bottom:20px;'>
@@ -73,11 +77,6 @@ st.markdown("""
         É importante revisar as respostas obtidas de modo a incluir o seu conhecimento pessoal a respeito do programa para que a documentação seja a mais correta e completa possível.
     </div>
 """, unsafe_allow_html=True)
-
-st.image("wiki.png", width=220)
-st.title("Chat Documenta Wiki")
-st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
-
 
 # === LLM ===
 llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
