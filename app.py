@@ -69,7 +69,7 @@ st.markdown("""
 st.markdown("""
     <div style='padding:10px; border-left:3px solid #a71d2a; margin-bottom:20px;'>
         <strong style='color:#a71d2a; font-size:18px;'>Atenção!</strong><br><br>
-        As respostas deste chatbot usam como referência o conteúdo oficial produzido pelo Departamento de Monitoramento e Avaliação (DMA/Sagicad) para orientação aos pontos focais com perfil de edição.<br><br>
+        As respostas deste chatbot usam como referência o conteúdo oficial produzido pelo Departamento de Monitoramento e Avaliação (DMA/Sagicad) para orientação aos pontos focais com perfil de edição. 
         É importante revisar as respostas obtidas de modo a incluir o seu conhecimento pessoal a respeito do programa para que a documentação seja a mais correta e completa possível.
     </div>
 """, unsafe_allow_html=True)
