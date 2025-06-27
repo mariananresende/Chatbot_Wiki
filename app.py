@@ -183,19 +183,9 @@ def vector_embedding():
 prompt1 = st.text_area(
     "Digite sua pergunta sobre a Documenta Wiki abaixo:",
     height=100,
-    placeholder="Ex: Como editar uma ficha de indicador? Ou: Quem pode publicar uma ficha de programa?",
+    placeholder="Ex: Como editar uma ficha de indicador? <br> Quem pode publicar uma ficha de programa? <br> O que devo colocar no campo Descrição e Interpretação na ficha do indicador?",
     key="user_input"
 )
-
-# === Sugestões de perguntas úteis ===
-st.markdown("""
-    <div style='margin-top: 30px; margin-bottom:10px; font-size:16px;'>
-        <strong>❓ Sugestões de perguntas:</strong><br>
-        • Como ter perfil de edição?<br>
-        • O que devo colocar no campo <em>Descrição e Interpretação</em> na ficha do indicador?<br>
-        • Como publicar uma ficha de indicador?<br>
-    </div>
-""", unsafe_allow_html=True)
 
 
 # === Botão de carregamento ===
