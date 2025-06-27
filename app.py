@@ -79,7 +79,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # === LLM ===
-llm = ChatGroq(groq_api_key=groq_api_key, model_name="Llama3-8b-8192")
+llm = ChatGroq(groq_api_key=groq_api_key, model_name="llama-3.1-8b-instant")
 
 # === Prompt com protocolo de nomeação integrado ===
 # === Prompt com protocolo de nomeação integrado ===
