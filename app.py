@@ -67,7 +67,7 @@ st.markdown("""
 
 st.image("wiki.png", width=220)
 st.title("Chat Documenta Wiki")
-st.caption("Tire dúvidas sobre a ferramenta de documentação oficial do MDS")
+st.caption("Tire dúvidas sobre como documentar os programas e respectivos indicadores na ferramenta de metadados oficial do MDS")
 
 # === Cabeçalho ===
 st.markdown("""
