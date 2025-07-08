@@ -7,7 +7,6 @@ st.set_page_config(page_title="Chatbot movido", page_icon="🔁")
 
 st.image("wiki.png", width=220)
 st.title("Chat Documenta Wiki")
-st.caption("Tire dúvidas sobre como documentar os programas e respectivos indicadores na ferramenta de metadados oficial do MDS")
 
 # === Cabeçalho ===
 
